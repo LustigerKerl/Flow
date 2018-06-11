@@ -2,7 +2,7 @@
 
 School app for DGSW students
 
-this app can help students 
+this app can help students like this ↙
 
                           to see cafeteria menu (at meaningful time)
                           to apply OutConfirm            
