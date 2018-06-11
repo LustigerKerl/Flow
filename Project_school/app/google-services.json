@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "532271277454",
+    "firebase_url": "https://flow-56cc8.firebaseio.com",
+    "project_id": "flow-56cc8",
+    "storage_bucket": "flow-56cc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532271277454:android:e8d5546b50a76dd4",
+        "android_client_info": {
+          "package_name": "com.example.lwh.project_school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532271277454-84jevj12tih5vnj6lnq1ukh8i3h6ajgn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "532271277454-84jevj12tih5vnj6lnq1ukh8i3h6ajgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl3MbiY4W-I8CQ5M_UAKVaYREf0xKYgT0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

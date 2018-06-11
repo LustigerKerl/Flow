@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lwh.ProjectSchool">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.example.lwh.project_school.Activity.Food.FoodActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.lwh.project_school.Activity.Login.LoginActivity"
+            android:label="로그인">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.lwh.project_school.Activity.Regist.RegistActivity"
+            android:label="Regist" />
+        <activity android:name="com.example.lwh.project_school.Activity.LoadActivity" />
+        <activity
+            android:name="com.example.lwh.project_school.Activity.Out.OutActivity"
+            android:label="외출 외박" />
+        <activity android:name="com.example.lwh.project_school.Activity.Result.ResultActivity" />
+
+        <service android:name="com.example.lwh.project_school.Service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.example.lwh.project_school.Service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        
+        <activity android:name="com.example.lwh.project_school.Activity.Notice.NoticeList.NoticeListActivity" />
+        <activity android:name="com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity">
+        </activity>
+    </application>
+
+</manifest>

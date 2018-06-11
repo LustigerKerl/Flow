@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lwh.project_school.Activity.LoadActivity">
+
+    <Button
+        android:id="@+id/btnShowFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="65dp"
+        android:text="급식보기"
+        app:layout_constraintBottom_toTopOf="@+id/btnShowOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnShowOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="12dp"
+        android:text="외출,외박 신청"
+        app:layout_constraintBottom_toTopOf="@+id/btnShowOutRes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowFood" />
+
+    <Button
+        android:id="@+id/btnShowNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="202dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginStart="134dp"
+        android:text="공지"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowOutRes" />
+
+    <Button
+        android:id="@+id/btnShowOutRes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="11dp"
+        android:text="외출,외박증 보기"
+        app:layout_constraintBottom_toTopOf="@+id/btnShowNotice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowOut" />
+
+    <TextView
+        android:id="@+id/tvNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+</android.support.constraint.ConstraintLayout>
