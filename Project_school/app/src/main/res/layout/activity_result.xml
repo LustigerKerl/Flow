@@ -8,31 +8,10 @@
     tools:context="com.example.lwh.project_school.Activity.Result.ResultActivity"
     android:orientation="horizontal">
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resultRecycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/btnClear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="초기화 하기" />
-
-            <TextView
-                android:layout_margin="10dp"
-                android:id="@+id/tvResTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center" />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

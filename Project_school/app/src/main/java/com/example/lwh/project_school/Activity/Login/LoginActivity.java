@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.lwh.ProjectSchool.R;
+import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.Activity.LoadActivity;
 import com.example.lwh.project_school.Activity.Login.Request.RequestBody;
 import com.example.lwh.project_school.Activity.Login.Response.ResponseBody;
@@ -59,9 +59,8 @@ public class LoginActivity extends AppCompatActivity {
             etEmail.setText(getIntent.getStringExtra("email"));
         }
         etPassword = findViewById(R.id.etPassword);
-        Cursor res = myDb.getAllData("token_table2");
+        Cursor res = myDb.getAllData("token_table");
         res.moveToLast();
-
         if (res.getCount() != 0 && !activityChanged) {
             Intent intent = new Intent(getApplicationContext(), LoadActivity.class);
             intent.putExtra("name", requestBody.getEmail());
@@ -130,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
     private void exceptionCatcher(int code, String token) {
         if (code == 200 && token != null) {
             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-            if (myDb.insertData("token_table2", token, null)) {
+            if (myDb.insertData("token_table", token, null)) {
                 Intent intent = new Intent(getApplicationContext(), LoadActivity.class);
                 deleteLastToken();
                 intent.putExtra("name", requestBody.getEmail());
@@ -148,18 +147,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void deleteLastToken() {
-        Cursor res = myDb.getAllData("token_table2");
+        Cursor res = myDb.getAllData("token_table");
         res.moveToFirst();
         int i = res.getInt(0);
         res.moveToLast();
         for (; i < res.getInt(0); i++) {
-            myDb.deleteData(Integer.toString(i), "token_table2");
+            myDb.deleteData(Integer.toString(i), "token_table");
         }
         myDb.close();
     }
 
     private void viewAllToken() {
-        Cursor res = myDb.getAllData("token_table2");
+        Cursor res = myDb.getAllData("token_table");
         if (res.getCount() == 0) {
             return;
         }

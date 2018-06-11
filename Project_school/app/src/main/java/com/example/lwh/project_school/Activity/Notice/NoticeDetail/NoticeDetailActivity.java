@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lwh.ProjectSchool.R;
+import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.Activity.Notice.NoticeDetail.Response.ResponseBody;
 import com.example.lwh.project_school.NetWork.RetroService;
 
@@ -69,8 +69,8 @@ public class NoticeDetailActivity extends AppCompatActivity {
                 tvBoardIdx.setText(String.format("공지 번호\n%s", String.valueOf(responseBody.getData().getIdx())));
                 tvBoardCreDate.setText(String.format("작성 날짜\n%s", format.format(responseBody.getData().getWrite_date())));
                 tvBoardMoDate.setText(String.format("수정 날짜\n%s", format.format(responseBody.getData().getModify_date())));
-                tvBoardWriter.setText(String.format("작성자\n%s", responseBody.getData().getWriter()));
-                tvBoardContent.setText(String.format("내용\n%s", responseBody.getData().getContent()));
+                tvBoardWriter.setText(String.format("작성자\n%s", responseBody.getData().getWriter().replace("@dgsw.hs.kr","")));
+                tvBoardContent.setText(String.format("내용\n\n\n%s", responseBody.getData().getContent()));
                 if(responseBody.getData().getNotice_files().length>0){
                     int maxIdx=responseBody.getData().getNotice_files().length;
                     StringBuilder stringBuilder=new StringBuilder();

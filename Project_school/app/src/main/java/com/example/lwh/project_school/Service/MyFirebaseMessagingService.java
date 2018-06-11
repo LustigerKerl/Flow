@@ -9,7 +9,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.lwh.ProjectSchool.R;
+import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity;
 import com.example.lwh.project_school.Activity.Result.ResultActivity;
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
@@ -55,8 +55,8 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
                 break;
         }
         PendingIntent pendingIntent = null;
-        if(intent!=null) {
-             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (intent != null) {
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         NotificationCompat.Builder builder;
         if (Build.VERSION.SDK_INT >= 26) {
@@ -67,14 +67,16 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
                             .setSmallIcon(R.drawable.ic_menu_notice)
                             .setContentText(content)
                             .setContentTitle(title)
-                            .setContentIntent(pendingIntent);
+                            .setContentIntent(pendingIntent)
+                            .setAutoCancel(true);
         } else {
             builder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.ic_menu_notice)
                             .setContentText(content)
                             .setContentTitle(title)
-                            .setContentIntent(pendingIntent);
+                            .setContentIntent(pendingIntent)
+                            .setAutoCancel(true);
         }
 
 

@@ -108,13 +108,16 @@
                 <TextView
                     android:id="@+id/tvBoardContent"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@android:color/holo_purple"
+                    android:background="@android:color/holo_green_dark"
                     android:elevation="4dp"
                     android:text="내용"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow

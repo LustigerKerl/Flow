@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.lwh.ProjectSchool.R;
+import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.Activity.Out.Request.RequestBody;
 import com.example.lwh.project_school.Activity.Out.Response.ResponseBody;
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
@@ -56,11 +56,7 @@ public class OutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_out);
 
         retroService = new RetroService(getApplicationContext(), true);
-        now[0] = getAnything.getTime("year");
-        now[1] = getAnything.getTime("mon");
-        now[2] = getAnything.getTime("day");
-        now[3] = getAnything.getTime("hour");
-        now[4] = getAnything.getTime("min");
+        getNowTime();
         Button btnStartTime = findViewById(R.id.btnStartTime),
                 btnEndTime = findViewById(R.id.btnEndTime),
                 btnGetAllow = findViewById(R.id.btnGetAllow);
@@ -90,6 +86,7 @@ public class OutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 start_or_end = 0;
                 tvStartTime.setText("");
+                getNowTime();
                 new DatePickerDialog(OutActivity.this, setDate, now[0], now[1] - 1, now[2]).show();
             }
         });
@@ -99,6 +96,7 @@ public class OutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 start_or_end = 1;
                 tvEndTime.setText("");
+                getNowTime();
                 new DatePickerDialog(OutActivity.this, setDate, now[0], now[1] - 1, now[2]).show();
             }
         });
@@ -273,6 +271,13 @@ public class OutActivity extends AppCompatActivity {
 
     private void createDatabase(Context context) {
         myDb = new DatabaseHelper(context);
+    }
+    private void getNowTime(){
+        now[0] = getAnything.getTime("year");
+        now[1] = getAnything.getTime("mon");
+        now[2] = getAnything.getTime("day");
+        now[3] = getAnything.getTime("hour");
+        now[4] = getAnything.getTime("min");
     }
 
 }

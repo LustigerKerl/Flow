@@ -12,9 +12,6 @@ import java.text.SimpleDateFormat;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "School_db2";
-    private static final String TABLE_NAME = "token_table2";
-    private static final String COL_1 = "ID";
-    private static String COL_2 = "COL2";
     private SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -23,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TOKEN TEXT)");
+        db.execSQL("create table " + "token_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TOKEN TEXT)");
         db.execSQL("create table sleep_out_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +
                 ",END_DATE TEXT,REASON TEXT,CLASS_IDX INTEGER,STUDENT_EMAIL STRING)");
         db.execSQL("create table go_out_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +
@@ -32,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + "token_table");
         db.execSQL("DROP TABLE IF EXISTS go_out_table");
         db.execSQL("DROP TABLE IF EXISTS sleep_out_table");
         onCreate(db);
@@ -42,12 +39,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         switch (TABLE_NAME) {
-            case "token_table2":
+            case "token_table":
                 contentValues.put("TOKEN", token);
                 break;
             case "sleep_out_table":
                 contentValues.put("ACCEPT", responseBody.getData().getSleep_out().getAccept());
-                contentValues.put("IDX", responseBody.getData().getSleep_out().getClass_idx());
+                contentValues.put("IDX", responseBody.getData().getSleep_out().getIdx());
                 contentValues.put("START_DATE", format.format(responseBody.getData().getSleep_out().getStart_time()));
                 contentValues.put("END_DATE", format.format(responseBody.getData().getSleep_out().getEnd_time()));
                 contentValues.put("REASON", responseBody.getData().getSleep_out().getReason());
@@ -56,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case "go_out_table":
                 contentValues.put("ACCEPT", responseBody.getData().getGo_out().getAccept());
-                contentValues.put("IDX", responseBody.getData().getGo_out().getClass_idx());
+                contentValues.put("IDX", responseBody.getData().getGo_out().getIdx());
                 contentValues.put("START_DATE", format.format(responseBody.getData().getGo_out().getStart_time()));
                 contentValues.put("END_DATE", format.format(responseBody.getData().getGo_out().getEnd_time()));
                 contentValues.put("REASON", responseBody.getData().getGo_out().getReason());
@@ -71,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public void createTB(String what, String table_name, String command) {// 테이블 만들기 연습용으로 해봄 ㅋ
+    /*public void createTB(String what, String table_name, String command) {// 테이블 만들기 연습용으로 해봄 ㅋ
         SQLiteDatabase db = this.getWritableDatabase();
         /*switch (what){
             case "create":
@@ -81,10 +78,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             default:
                 break;
-        }*/
+        }
         db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TOKEN TEXT)");
 
-    }
+    }*/
 
     public Cursor getAllData(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -120,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }*/
 
     public String getToken() {
-        Cursor res = getAllData("token_table2");
+        Cursor res = getAllData("token_table");
         res.moveToLast();
         return res.getString(1);
     }
@@ -130,10 +127,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         res.moveToLast();
         return res.getString(idx);
     }*/
-    public void delete(String tableName) {
+    /*public void delete(String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + tableName);
-    }
+    }*/
     /*public void fasdf(){
         SQLiteDatabase db=this.getWritableDatabase();
         db.execSQL("create table out_table4" +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,TYPE TEXT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +

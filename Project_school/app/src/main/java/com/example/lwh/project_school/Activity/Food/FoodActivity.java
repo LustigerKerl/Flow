@@ -9,7 +9,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.lwh.ProjectSchool.R;
+import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.NetWork.NetWorkWorld;
 import com.example.lwh.project_school.Service.GetAnything;
 

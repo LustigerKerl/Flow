@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.lwh.ProjectSchool.R;
+import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.Activity.Login.LoginActivity;
 import com.example.lwh.project_school.Activity.Regist.Request.RequestBody;
 import com.example.lwh.project_school.Activity.Regist.Response.ResponseBody;
