@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import com.example.lwh.project_school.Adapter.RecyclerAdapter;
 import com.example.lwh.project_school.Adapter.RecyclerItem;
@@ -16,23 +19,23 @@ import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
     private DatabaseHelper da;
-    private Cursor res;
     private RecyclerView recyclerView;
     RecyclerAdapter adapter;
-
+    Spinner spType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        da = new DatabaseHelper(this);                  //Instantiation
+        spType=findViewById(R.id.spType);                       //Binding
 
-        da = new DatabaseHelper(this);
-        res = da.selectQuery("go_out_table", "ACCEPT is 1");
+        spType.setOnItemSelectedListener(itemSelectedListener); //Initializing Section
         initLayout();
         setRecyclerView();
         adapter.clear();
         adapter.addRecyclerItems(initData());
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();                         //End of Initializing
     }
 
     private void initLayout() {
@@ -47,10 +50,11 @@ public class ResultActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
-    private ArrayList<RecyclerItem> initData() {
 
+    private ArrayList<RecyclerItem> initData() {
         ArrayList<RecyclerItem> items = new ArrayList<>();
-        if(res.getCount()!=0){
+        Cursor res = da.selectQuery("go_out_table", "ACCEPT is 1");
+        if(res.getCount()!=0&&!spType.getSelectedItem().equals("외박")){
             res.moveToLast();
             do {
                 RecyclerItem recyclerItem=new RecyclerItem();
@@ -61,8 +65,8 @@ public class ResultActivity extends AppCompatActivity {
                 items.add(recyclerItem);
             } while (res.moveToPrevious());
         }
-        res=da.selectQuery("sleep_out_table","ACCEPT is 1");
-        if(res.getCount()!=0){
+        res =da.selectQuery("sleep_out_table","ACCEPT is 1");
+        if(res.getCount()!=0&&!spType.getSelectedItem().equals("외출")){
             res.moveToLast();
             do {
                 RecyclerItem recyclerItem=new RecyclerItem();
@@ -75,6 +79,20 @@ public class ResultActivity extends AppCompatActivity {
         }
         return items;
     }
+
+    private AdapterView.OnItemSelectedListener itemSelectedListener=new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            adapter.clear();
+            adapter.addRecyclerItems(initData());
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
     /*private void abc() {
         StringBuilder sb = new StringBuilder();

@@ -7,12 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
-import com.example.lwh.project_school.R;
 import com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity;
 import com.example.lwh.project_school.Activity.Result.ResultActivity;
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
+import com.example.lwh.project_school.R;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -24,17 +23,15 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
         super.onMessageReceived(remoteMessage);
 
         myDb = new DatabaseHelper(getApplicationContext());
-        Log.d("test235123512351235", String.valueOf(remoteMessage.getData().values()));
+        //Log.d("test235123512351235", String.valueOf(remoteMessage.getData().values()));
         //Log.d("hi",Integer.toString(remoteMessage.getData().size()));
-        Log.d("test-332", remoteMessage.getNotification().getBody());
-        Log.d("test-332", remoteMessage.getData().get("type"));
-        Log.d("test-332", remoteMessage.getData().get("idx"));
+        //Log.d("test-332", remoteMessage.getNotification().getBody());
+        //Log.d("test-332", remoteMessage.getData().get("type"));
+        //Log.d("test-332", remoteMessage.getData().get("idx"));
         //sendNotification(myDb.getData(1));
         sendNotification(remoteMessage.getData().get("type"), remoteMessage.getNotification().getTitle(),
                 remoteMessage.getNotification().getBody(), remoteMessage.getData().get("idx"));
-
     }
-
 
     private void sendNotification(String type, String title, String content, String idx) {
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -78,9 +75,6 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
                             .setContentIntent(pendingIntent)
                             .setAutoCancel(true);
         }
-
-
         manager.notify(0, builder.build());
-
     }
 }

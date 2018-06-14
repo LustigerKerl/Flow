@@ -3,22 +3,22 @@ package com.example.lwh.project_school.Activity.Login;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.lwh.project_school.R;
-import com.example.lwh.project_school.Activity.LoadActivity;
 import com.example.lwh.project_school.Activity.Login.Request.RequestBody;
 import com.example.lwh.project_school.Activity.Login.Response.ResponseBody;
+import com.example.lwh.project_school.Activity.Main.MainActivity;
 import com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity;
 import com.example.lwh.project_school.Activity.Regist.RegistActivity;
 import com.example.lwh.project_school.Activity.Result.ResultActivity;
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
 import com.example.lwh.project_school.NetWork.RetroService;
+import com.example.lwh.project_school.R;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.security.MessageDigest;
@@ -33,110 +33,43 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private DatabaseHelper myDb;
-    private EditText etEmail;
-    private EditText etPassword;
-    private Pattern ptEmail = Pattern.compile("(dgsw.hs.kr)");
-    private Pattern ptPassword = Pattern.compile("[a-zA-Z0-9]{8,16}(?=.*[~`!@#$%^&*()-])");
-    private Matcher m;
+    private EditText etEmail,
+            etPassword;
+    private Pattern ptEmail = Pattern.compile("(dgsw.hs.kr)"),
+            ptPassword = Pattern.compile("[a-zA-Z0-9]{8,16}(?=.*[~`!@#$%^&*()-])");
     private RequestBody requestBody;
     private boolean activityChanged = false;
+    private RetroService retroService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Intent getIntent = getIntent();
-        requestBody = new RequestBody();
-        myDb = new DatabaseHelper(this);
-        if (getIntent != null && getIntent.getStringExtra("type") != null) {
-            fcmBackgroundControl(getIntent);
-        }
+        myDb = new DatabaseHelper(this);                                    //Instantiation Section
+        retroService = new RetroService(getApplicationContext(), false);
+        requestBody = new RequestBody();                                            //End of Instantiation
 
-        etEmail = findViewById(R.id.etEmail);
-        if (getIntent.getStringExtra("email") != null) {
-            Log.d("test", getIntent.getStringExtra("email"));
-            etEmail.setText(getIntent.getStringExtra("email"));
-        }
-        etPassword = findViewById(R.id.etPassword);
-        Cursor res = myDb.getAllData("token_table");
-        res.moveToLast();
-        if (res.getCount() != 0 && !activityChanged) {
-            Intent intent = new Intent(getApplicationContext(), LoadActivity.class);
-            intent.putExtra("name", requestBody.getEmail());
-            startActivity(intent);
-            finish();
-        }
+        etEmail = findViewById(R.id.etEmail);                                       //Binding Section
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnRegist = findViewById(R.id.btnRegist);
-        btnRegist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegistActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m = ptEmail.matcher(etEmail.getText().toString());
-                if (etEmail.getText().toString().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Email을 입력하세요!", Toast.LENGTH_SHORT).show();
-                    etEmail.requestFocus();
-                    return;
-                }
+        etPassword = findViewById(R.id.etPassword);                                 //End of Binding
 
-                if (m.find()) {
-                    m = ptPassword.matcher(etPassword.getText().toString());
-                } else {
-                    Toast.makeText(getApplicationContext(), "DGSW 이메일이 아닙니다!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (etPassword.getText().toString().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
-                    etPassword.requestFocus();
-                    return;
-                }
-                if (m.find() != true) {
-                    Toast.makeText(getApplicationContext(), "비밀번호 양식을 맞춰주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                requestBody.setEmail(etEmail.getText().toString());
-                requestBody.setPw(SHA256(etPassword.getText().toString()));
-                requestBody.setRegistration_token(FirebaseInstanceId.getInstance().getToken());
-                RetroService retroService = new RetroService(getApplicationContext(), false);
-                retroService.getSignInService().signIn(requestBody).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        ResponseBody responseBody = response.body();
-                        Log.d("Login TEst", responseBody.toString());
-                        if (responseBody.getStatus() == 200)
-                            exceptionCatcher(responseBody.getStatus(), responseBody.getData().getToken());
-                        else
-                            exceptionCatcher(responseBody.getStatus(), null);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(LoginActivity.this, "서버에서 응답을 받지 못했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        preActivityStart();                                                         //Initializing Section
+        btnRegist.setOnClickListener(btnClickListener);
+        btnLogin.setOnClickListener(btnClickListener);                              //End of Initializing
     }
 
     private void exceptionCatcher(int code, String token) {
         if (code == 200 && token != null) {
             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-            if (myDb.insertData("token_table", token, null)) {
-                Intent intent = new Intent(getApplicationContext(), LoadActivity.class);
-                deleteLastToken();
+            delTokenTableData();
+            if (myDb.insertData("token_table", token, requestBody.getEmail(),null)) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("name", requestBody.getEmail());
                 startActivity(intent);
                 myDb.close();
                 finish();
-                Toast.makeText(this, "DB에 토큰을 저장했습니다.", Toast.LENGTH_SHORT).show();
             } else Toast.makeText(this, "DB에 토큰을 저장하지 못했습니다.", Toast.LENGTH_SHORT).show();
         } else if (code == 400)
             Toast.makeText(getApplicationContext(), "입력 양식을 지켜주세요", Toast.LENGTH_SHORT).show();
@@ -146,34 +79,14 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "서버 오류.", Toast.LENGTH_SHORT).show();
     }
 
-    private void deleteLastToken() {
-        Cursor res = myDb.getAllData("token_table");
-        res.moveToFirst();
-        int i = res.getInt(0);
-        res.moveToLast();
-        for (; i < res.getInt(0); i++) {
-            myDb.deleteData(Integer.toString(i), "token_table");
-        }
-        myDb.close();
-    }
-
-    private void viewAllToken() {
-        Cursor res = myDb.getAllData("token_table");
-        if (res.getCount() == 0) {
-            return;
-        }
-        StringBuffer buffer = new StringBuffer();
-        while (res.moveToNext()) {
-            buffer.append("ID :" + res.getInt(0) + "\n");
-            buffer.append("TOKEN :" + res.getString(1) + "\n");
-        }
-        Log.d("DATA", buffer.toString());
+    private void delTokenTableData() {
+        myDb.delete("token_table");
         myDb.close();
     }
 
     public String SHA256(String str) {
 
-        String SHA = "";
+        String SHA="";
 
         try {
 
@@ -208,37 +121,108 @@ public class LoginActivity extends AppCompatActivity {
 
     private void fcmBackgroundControl(Intent getIntent) {
         Intent intent;
-        Log.d("test-type", getIntent.getStringExtra("type"));
-        Log.d("test-idx", getIntent.getStringExtra("idx"));
         switch (Objects.requireNonNull(getIntent.getStringExtra("type"))) {
             case "sleep_out":
                 intent = new Intent(getApplicationContext(), ResultActivity.class);
-                Log.d("test-type3", getIntent.getStringExtra("type"));
                 myDb.updateData("sleep_out_table", "1", getIntent.getStringExtra("idx"));
                 startActivity(intent);
-                Log.d("test-debug=hi", "hi");
                 activityChanged = true;
                 finish();
                 break;
             case "go_out":
                 intent = new Intent(getApplicationContext(), ResultActivity.class);
-                Log.d("test-type3", getIntent.getStringExtra("type"));
                 myDb.updateData("go_out_table", "1", getIntent.getStringExtra("idx"));
                 startActivity(intent);
-                Log.d("test-debug=hi", "hi");
                 activityChanged = true;
                 finish();
                 break;
             case "notice":
                 intent = new Intent(getApplicationContext(), NoticeDetailActivity.class);
-                Log.d("test-type3", getIntent.getStringExtra("type"));
-                Log.d("test-idx23", getIntent.getStringExtra("idx"));
                 intent.putExtra("idx", getIntent.getStringExtra("idx"));
                 startActivity(intent);
-                Log.d("test-debug=hi", "hi");
                 activityChanged = true;
                 finish();
                 break;
+        }
+    }
+
+    private Button.OnClickListener btnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btnRegist:
+                    Intent intent = new Intent(LoginActivity.this, RegistActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btnLogin:
+                    if (!checkFormatException()) return;
+                    requestBody.setEmail(etEmail.getText().toString());
+                    requestBody.setPw(SHA256(etPassword.getText().toString()));
+                    requestBody.setRegistration_token(FirebaseInstanceId.getInstance().getToken());
+                    doNetwork();
+                    break;
+            }
+        }
+    };
+
+    private boolean checkFormatException() {
+        Matcher m = ptEmail.matcher(etEmail.getText().toString());
+        if (etEmail.getText().toString().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Email을 입력하세요!", Toast.LENGTH_SHORT).show();
+            etEmail.requestFocus();
+            return false;
+        } else if (m.find()) {
+            m = ptPassword.matcher(etPassword.getText().toString());
+        } else {
+            Toast.makeText(getApplicationContext(), "DGSW 이메일이 아닙니다!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (etPassword.getText().toString().length() == 0) {
+            Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+            etPassword.requestFocus();
+            return false;
+        } else if (!m.find()) {
+            Toast.makeText(getApplicationContext(), "비밀번호 양식을 맞춰주세요", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void doNetwork() {
+        retroService.getSignInService().signIn(requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.body()==null)
+                    Toast.makeText(LoginActivity.this, "데이터를 받아오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                else if (response.body().getStatus() == 200)
+                    exceptionCatcher(response.body().getStatus(), response.body().getData().getToken());
+                else
+                    exceptionCatcher(response.body().getStatus(), null);
+            }
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                Toast.makeText(LoginActivity.this, "서버에서 응답을 받지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void preActivityStart() {
+        Intent getIntent = getIntent();
+        Cursor res = myDb.getAllData("token_table");
+        res.moveToLast();
+        if (res.getCount() != 0 && !activityChanged) {      //Auto Login Section
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        if (getIntent != null) {
+            if (getIntent.getStringExtra("type") != null && getIntent.getStringExtra("idx") != null) {
+                fcmBackgroundControl(getIntent);
+            } else if (getIntent.getStringExtra("email") != null) {
+                etEmail.setText(getIntent.getStringExtra("email"));
+            }
         }
     }
 }

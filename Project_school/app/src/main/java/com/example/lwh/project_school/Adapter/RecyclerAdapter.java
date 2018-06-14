@@ -45,14 +45,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             case "notice":
                 RecyclerItem recyclerItem = items.get(position);
                 if (recyclerItem.getContent().length() >= 20)
-                    holder.tvNoticeContent.setText(String.format("%s...", recyclerItem.getContent().substring(0, 19)));
+                    holder.tvNoticeContent.setText(String.format("%s  ...", recyclerItem.getContent().substring(0, 19)));
                 else holder.tvNoticeContent.setText(recyclerItem.getContent());
 
                 holder.tvNoticeIdx.setText(Integer.toString(recyclerItem.getIdx()));
                 holder.tvNoticeWriter.setText(recyclerItem.getWriter().replace("@dgsw.hs.kr", ""));
                 break;
             case "result":
-                RecyclerItem recyclerItem1=items.get(position);
+                RecyclerItem recyclerItem1 = items.get(position);
                 holder.tvSubType.setText(recyclerItem1.getType());
                 holder.tvSubStartTime.setText(recyclerItem1.getStart_date());
                 holder.tvSubEndTime.setText(recyclerItem1.getEnd_date());
@@ -75,8 +75,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvNoticeIdx, tvNoticeContent, tvNoticeWriter;
-        private TextView tvSubType, tvSubStartTime, tvSubEndTime, tvSubReason;
+        private TextView tvNoticeIdx, tvNoticeContent, tvNoticeWriter,
+                tvSubType, tvSubStartTime, tvSubEndTime, tvSubReason;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -95,10 +95,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     tvNoticeWriter = itemView.findViewById(R.id.tvNoticeWriter);
                     break;
                 case "result":
-                    tvSubType=itemView.findViewById(R.id.tvSubType);
-                    tvSubStartTime=itemView.findViewById(R.id.tvSubStartTime);
-                    tvSubEndTime=itemView.findViewById(R.id.tvSubEndTime);
-                    tvSubReason=itemView.findViewById(R.id.tvSubReason);
+                    tvSubType = itemView.findViewById(R.id.tvSubType);
+                    tvSubStartTime = itemView.findViewById(R.id.tvSubStartTime);
+                    tvSubEndTime = itemView.findViewById(R.id.tvSubEndTime);
+                    tvSubReason = itemView.findViewById(R.id.tvSubReason);
                     break;
             }
 

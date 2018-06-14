@@ -4,149 +4,198 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="@android:color/holo_green_dark"
     tools:context="com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:layout_editor_absoluteX="8dp">
+            android:orientation="vertical">
 
-            <TableRow
-                android:gravity="center"
+            <TableLayout
+                android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
 
-                <LinearLayout
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tvBoardCreDate"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@android:color/holo_orange_dark"
-                            android:elevation="4dp"
-                            android:text="작성일"
-                            android:textAlignment="center"
-                            tools:layout_editor_absoluteX="70dp"
-                            tools:layout_editor_absoluteY="78dp" />
-
-                        <TextView
-                            android:id="@+id/tvBoardMoDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@android:color/holo_green_light"
-                            android:elevation="4dp"
-                            android:text="수정일"
-                            android:textAlignment="center" />
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/tvBoardCreDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@android:color/holo_orange_dark"
+                                android:elevation="4dp"
+                                android:text="작성일"
+                                android:textAlignment="center"
+                                tools:layout_editor_absoluteX="70dp"
+                                tools:layout_editor_absoluteY="78dp" />
+
+                            <TextView
+                                android:id="@+id/tvBoardMoDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="@android:color/holo_green_light"
+                                android:elevation="4dp"
+                                android:text="수정일"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvBoardWriter"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="@android:color/holo_blue_bright"
+                                android:elevation="4dp"
+                                android:text="asdfa@dgsw.hs.kr"
+                                android:textAlignment="center" />
+
+                            <TextView
+                                android:id="@+id/tvBoardIdx"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="@android:color/holo_orange_light"
+                                android:elevation="4dp"
+                                android:text="공지 번호"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvBoardWriter"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/holo_blue_bright"
-                            android:elevation="4dp"
-                            android:text="asdfa@dgsw.hs.kr"
-                            android:textAlignment="center" />
+                </TableRow>
 
-                        <TextView
-                            android:id="@+id/tvBoardIdx"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/holo_orange_light"
-                            android:elevation="4dp"
-                            android:text="공지 번호"
-                            android:textAlignment="center" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tvBoardContent"
+                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/holo_green_dark"
-                    android:elevation="4dp"
-                    android:text="내용"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </TableRow>
+                    android:gravity="fill"
+                    tools:layout_editor_absoluteX="384dp"
+                    tools:layout_editor_absoluteY="108dp">
 
-            <TableRow
+                    <TextView
+                        android:id="@+id/tvBoardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/holo_green_dark"
+                        android:elevation="4dp"
+                        android:text="내용"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/tvBoardContent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_dark"
+                android:elevation="4dp"
+                android:gravity="bottom"
+                android:text="gasdgaasd"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgView01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="180dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="100dp"
+                app:srcCompat="@android:color/holo_green_dark" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/tvBoardFile"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:layout_weight="50"
-                    android:textAlignment="textStart" />
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="347dp" />
 
                 <Button
                     android:id="@+id/btnDownload"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@android:drawable/ic_menu_save"
                     android:backgroundTint="@android:color/holo_blue_light"
                     android:elevation="0dp"
                     android:src="@drawable/ic_action_name"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    tools:layout_editor_absoluteX="225dp"
+                    tools:layout_editor_absoluteY="347dp" />
+            </LinearLayout>
 
-            </TableRow>
-
-        </TableLayout>
+        </LinearLayout>
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

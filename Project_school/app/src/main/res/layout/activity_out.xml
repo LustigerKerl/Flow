@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back05"
     tools:context="com.example.lwh.project_school.Activity.Out.OutActivity">
 
     <Button
@@ -14,6 +15,8 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="8dp"
         android:text="시작 시간"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,6 +30,8 @@
         android:layout_marginEnd="80dp"
         android:layout_marginTop="8dp"
         android:text="마감 시간"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="180dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/tvStartTime" />
 
@@ -54,12 +63,15 @@
         android:id="@+id/btnGetAllow"
         android:layout_width="102dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="88dp"
         android:layout_marginEnd="144dp"
         android:layout_marginStart="138dp"
         android:text="발사!"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -72,7 +84,9 @@
         android:layout_marginTop="80dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="가야만 하는 이유가 있는가..."
+        android:text="왜 감?"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnGetAllow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +101,9 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="180dp"
         android:text="나가는 시간 :"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toStartOf="@+id/tvStartTime"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +117,9 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:text="들어오는 시간 :"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/tvEndTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -122,7 +142,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="외출" />
+            android:text="외출"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/rbSleepOut"
@@ -130,7 +152,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="외박" />
+            android:text="외박"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </RadioGroup>
 

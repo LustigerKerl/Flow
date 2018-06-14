@@ -10,26 +10,32 @@
         android:layout_width="5dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/edge_all"
+        android:background="@drawable/edge_all01"
         android:text="TextView"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/tvNoticeContent"
         android:layout_width="220dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/edge_all"
+        android:background="@drawable/edge_all01"
         android:text="TextView"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/tvNoticeWriter"
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/edge_all"
+        android:background="@drawable/edge_all01"
         android:text="TextView"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

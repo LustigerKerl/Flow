@@ -5,8 +5,8 @@ import java.util.Date;
 
 
 
-public class GetAnything {
-    int result=0;
+public class GetEveryTime {
+    private int result=0;
     public int getTime(String what) {
 
         long now = System.currentTimeMillis();

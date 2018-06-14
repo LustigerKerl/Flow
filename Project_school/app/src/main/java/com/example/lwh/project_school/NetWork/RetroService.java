@@ -2,7 +2,6 @@ package com.example.lwh.project_school.NetWork;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
 import com.example.lwh.project_school.NetWork.Interfaces.NoticeService;
@@ -16,7 +15,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,7 +31,6 @@ public class RetroService {
         if(needToken) {
             token = myDb.getToken();
             myDb.close();
-            Log.d("test32423423",token);
         }
         else token="";
     }

@@ -12,7 +12,8 @@ import java.text.SimpleDateFormat;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "School_db2";
-    private SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         SQLiteDatabase db = this.getWritableDatabase();
@@ -20,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + "token_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TOKEN TEXT)");
+        db.execSQL("create table " + "token_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TOKEN TEXT,EMAIL TEXT)");
         db.execSQL("create table sleep_out_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +
                 ",END_DATE TEXT,REASON TEXT,CLASS_IDX INTEGER,STUDENT_EMAIL STRING)");
         db.execSQL("create table go_out_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +
@@ -35,12 +36,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String TABLE_NAME, String token, ResponseBody responseBody) {
+    public boolean insertData(String TABLE_NAME, String token,String email, ResponseBody responseBody) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         switch (TABLE_NAME) {
             case "token_table":
                 contentValues.put("TOKEN", token);
+                contentValues.put("EMAIL",email);
                 break;
             case "sleep_out_table":
                 contentValues.put("ACCEPT", responseBody.getData().getSleep_out().getAccept());
@@ -127,10 +129,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         res.moveToLast();
         return res.getString(idx);
     }*/
-    /*public void delete(String tableName) {
+    public void delete(String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + tableName);
-    }*/
+    }
     /*public void fasdf(){
         SQLiteDatabase db=this.getWritableDatabase();
         db.execSQL("create table out_table4" +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,TYPE TEXT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +

@@ -7,6 +7,16 @@
     android:background="@android:color/holo_orange_light"
     tools:context="com.example.lwh.project_school.Activity.Notice.NoticeList.NoticeListActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -24,34 +34,43 @@
             android:layout_width="5dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:background="@drawable/edge_all"
+            android:background="@drawable/edge_all01"
             android:text="글 번호"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="220dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:background="@drawable/edge_all"
+            android:background="@drawable/edge_all01"
             android:text="내용"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:background="@drawable/edge_all"
+            android:background="@drawable/edge_all01"
             android:text="작성자"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center"/>
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swifeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

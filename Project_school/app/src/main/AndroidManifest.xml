@@ -20,8 +20,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.lwh.project_school.Activity.Food.FoodActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="급식메뉴" />
         <activity
             android:name="com.example.lwh.project_school.Activity.Login.LoginActivity"
             android:label="로그인">
@@ -33,12 +32,15 @@
         </activity>
         <activity
             android:name="com.example.lwh.project_school.Activity.Regist.RegistActivity"
-            android:label="Regist" />
-        <activity android:name="com.example.lwh.project_school.Activity.LoadActivity" />
+            android:label="회원가입" />
+        <activity android:name="com.example.lwh.project_school.Activity.Main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="메인 메뉴"/>
         <activity
             android:name="com.example.lwh.project_school.Activity.Out.OutActivity"
             android:label="외출 외박" />
-        <activity android:name="com.example.lwh.project_school.Activity.Result.ResultActivity" />
+        <activity android:name="com.example.lwh.project_school.Activity.Result.ResultActivity"
+            android:label="외출 외박증 보기"/>
 
         <service android:name="com.example.lwh.project_school.Service.MyFirebaseMessagingService">
             <intent-filter>
@@ -51,8 +53,10 @@
             </intent-filter>
         </service>
         
-        <activity android:name="com.example.lwh.project_school.Activity.Notice.NoticeList.NoticeListActivity" />
-        <activity android:name="com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity">
+        <activity android:name="com.example.lwh.project_school.Activity.Notice.NoticeList.NoticeListActivity"
+            android:label="공지 리스트" />
+        <activity android:name="com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity"
+            android:label="공지 자세히보기">
         </activity>
     </application>
 

@@ -3,23 +3,26 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical">
+    android:background="@drawable/back04"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvUserEmail"
+        android:id="@+id/tvFoodMenu"
         android:layout_width="207dp"
         android:layout_height="218dp"
         android:layout_marginBottom="69dp"
         android:layout_marginEnd="94dp"
-        android:layout_marginLeft="83dp"
-        android:layout_marginRight="94dp"
         android:layout_marginStart="83dp"
         android:layout_marginTop="107dp"
+        android:gravity="center"
         android:text="급식"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/breakButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +71,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFoodMenu" />
 
     <TextView
         android:id="@+id/TimeView"
@@ -78,9 +81,10 @@
         android:layout_marginEnd="138dp"
         android:layout_marginStart="139dp"
         android:layout_marginTop="46dp"
-        android:text="급식이 이곳에 표시됩니다."
+        android:text="시간이 표시됨 여기"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserEmail"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvFoodMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +99,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvUserEmail"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFoodMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TimeView" />

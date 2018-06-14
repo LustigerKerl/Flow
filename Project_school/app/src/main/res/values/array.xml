@@ -31,4 +31,9 @@
         <item >19</item>
         <item >20</item>
     </string-array>
+    <string-array name="type">
+        <item >전체</item>
+        <item >외출</item>
+        <item >외박</item>
+    </string-array>
 </resources>

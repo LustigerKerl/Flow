@@ -16,7 +16,7 @@ public  class NetWorkWorld extends AsyncTask<Integer, Integer, Integer> {
         void getMenu(List<SchoolMenu> success);
     }
 
-    static List<SchoolMenu> result=null;
+    private static List<SchoolMenu> result=null;
 
     @Override
     protected void onPostExecute(Integer integer) {
