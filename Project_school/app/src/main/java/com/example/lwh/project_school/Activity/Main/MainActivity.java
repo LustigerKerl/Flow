@@ -108,6 +108,6 @@ public class MainActivity extends AppCompatActivity {
     private String setNameText(){
         Cursor res=myDb.getAllData("token_table");
         res.moveToLast();
-        return String.format("%s님 로그인을 환영합니다.", res.getString(2));
+        return String.format("%s님 환영합니다.", res.getString(2));
     }
 }
