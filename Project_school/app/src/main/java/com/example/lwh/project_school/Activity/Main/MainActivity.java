@@ -1,5 +1,6 @@
 package com.example.lwh.project_school.Activity.Main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -24,6 +25,8 @@ import com.example.lwh.project_school.R;
 public class MainActivity extends AppCompatActivity {
     private long backPressedTime = 0;
     DatabaseHelper myDb;
+    public static Context mContext;
+    public static TextView badge_noti1,badge_noti2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);                       //Binding Section
         TextView tvNameView = findViewById(R.id.tvNameView);
+        badge_noti1 = findViewById(R.id.badge_noti1);
+        badge_noti2 = findViewById(R.id.badge_noti2);
         Button btnShowOut = findViewById(R.id.btnShowOut);
         Button btnShowFood = findViewById(R.id.btnShowFood);
         Button btnShowOutRes = findViewById(R.id.btnShowOutRes);
@@ -45,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         btnShowNotice.setOnClickListener(btnClickListener);
         tvNameView.setText(setNameText());
         toolbar.setTitleTextColor(Color.parseColor("#d7d7d7"));
+        mContext = this;
+        badge_noti2.setVisibility(View.INVISIBLE);
+        badge_noti1.setVisibility(View.INVISIBLE);
         setSupportActionBar(toolbar);                                       //End of Initializing
     }
 
@@ -80,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     private Button.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -97,16 +104,21 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btnShowOutRes:
                     intent = new Intent(getApplicationContext(), ResultActivity.class);
                     startActivity(intent);
+                    badge_noti2.setText("0");
+                    badge_noti2.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.btnShowNotice:
                     intent = new Intent(getApplicationContext(), NoticeListActivity.class);
                     startActivity(intent);
+                    badge_noti1.setText("0");
+                    badge_noti1.setVisibility(View.INVISIBLE);
                     break;
             }
         }
     };
-    private String setNameText(){
-        Cursor res=myDb.getAllData("token_table");
+
+    private String setNameText() {
+        Cursor res = myDb.getAllData("token_table");
         res.moveToLast();
         return String.format("%s님 환영합니다.", res.getString(2));
     }

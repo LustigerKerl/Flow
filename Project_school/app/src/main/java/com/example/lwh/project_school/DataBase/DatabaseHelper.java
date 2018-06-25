@@ -64,10 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
         }
         long result = db.insert(TABLE_NAME, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        db.close();
+        return result != -1;
     }
 
     /*public void createTB(String what, String table_name, String command) {// 테이블 만들기 연습용으로 해봄 ㅋ

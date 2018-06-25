@@ -6,31 +6,32 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.view.View;
 
 import com.example.lwh.project_school.Activity.Notice.NoticeDetail.NoticeDetailActivity;
 import com.example.lwh.project_school.Activity.Result.ResultActivity;
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
 import com.example.lwh.project_school.R;
 import com.google.firebase.messaging.RemoteMessage;
+import static com.example.lwh.project_school.Activity.Main.MainActivity.badge_noti1;
+import static com.example.lwh.project_school.Activity.Main.MainActivity.badge_noti2;
 
 public class MyFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     DatabaseHelper myDb;
+    Handler handler = new Handler();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
         myDb = new DatabaseHelper(getApplicationContext());
-        //Log.d("test235123512351235", String.valueOf(remoteMessage.getData().values()));
-        //Log.d("hi",Integer.toString(remoteMessage.getData().size()));
-        //Log.d("test-332", remoteMessage.getNotification().getBody());
-        //Log.d("test-332", remoteMessage.getData().get("type"));
-        //Log.d("test-332", remoteMessage.getData().get("idx"));
-        //sendNotification(myDb.getData(1));
         sendNotification(remoteMessage.getData().get("type"), remoteMessage.getNotification().getTitle(),
                 remoteMessage.getNotification().getBody(), remoteMessage.getData().get("idx"));
+
+        updateNotiCount(remoteMessage.getData().get("type"));
     }
 
     private void sendNotification(String type, String title, String content, String idx) {
@@ -76,5 +77,32 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
                             .setAutoCancel(true);
         }
         manager.notify(0, builder.build());
+    }
+
+    private void updateNotiCount(final String type) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (type) {
+                            case "sleep_out":
+                                badge_noti2.setText(String.valueOf(Integer.parseInt(badge_noti2.getText().toString())+1));
+                                badge_noti2.setVisibility(View.VISIBLE);
+                                break;
+                            case "go_out":
+                                badge_noti2.setText(String.valueOf(Integer.parseInt(badge_noti2.getText().toString())+1));
+                                badge_noti2.setVisibility(View.VISIBLE);
+                                break;
+                            case "notice":
+                                badge_noti1.setText(String.valueOf(Integer.parseInt(badge_noti1.getText().toString())+1));
+                                badge_noti1.setVisibility(View.VISIBLE);
+                                break;
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 }

@@ -228,8 +228,8 @@ public class OutActivity extends AppCompatActivity {
         } else if (tvEndTime.getText().length() == 0 || tvStartTime.getText().length() == 0) {
             Toast.makeText(OutActivity.this, "시간을 입력해주세요", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        return true;
+        } //else if (mode == 0 &&)
+            return true;
     }
 
     private void doNetwork() {
@@ -245,7 +245,7 @@ public class OutActivity extends AppCompatActivity {
                         case 200:
                             Toast.makeText(OutActivity.this, "외출을 신청했습니다.", Toast.LENGTH_SHORT).show();
                             myDb = new DatabaseHelper(getApplicationContext());
-                            myDb.insertData("go_out_table", null,null, response.body());
+                            myDb.insertData("go_out_table", null, null, response.body());
                             myDb.close();
                             break;
                         default:
@@ -271,7 +271,7 @@ public class OutActivity extends AppCompatActivity {
                         case 200:
                             Toast.makeText(OutActivity.this, "외박을 신청했습니다.", Toast.LENGTH_SHORT).show();
                             myDb = new DatabaseHelper(getApplicationContext());
-                            myDb.insertData("sleep_out_table", null,null, response.body());
+                            myDb.insertData("sleep_out_table", null, null, response.body());
                             myDb.close();
                             break;
                         default:
