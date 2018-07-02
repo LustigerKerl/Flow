@@ -1,5 +1,6 @@
 package com.example.lwh.project_school.Activity.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -54,17 +55,27 @@ public class LoginActivity extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnRegist = findViewById(R.id.btnRegist);
         etPassword = findViewById(R.id.etPassword);                                 //End of Binding
-
         preActivityStart();                                                         //Initializing Section
         btnRegist.setOnClickListener(btnClickListener);
         btnLogin.setOnClickListener(btnClickListener);                              //End of Initializing
+    }
+    public static class InitializationOnDemandHolderIdiom {
+        private InitializationOnDemandHolderIdiom () {}
+        private static class Singleton {
+            private static final InitializationOnDemandHolderIdiom instance = new InitializationOnDemandHolderIdiom();
+        }
+
+        public static InitializationOnDemandHolderIdiom getInstance () {
+            System.out.println("create instance");
+            return Singleton.instance;
+        }
     }
 
     private void exceptionCatcher(int code, String token) {
         if (code == 200 && token != null) {
             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
             delTokenTableData();
-            if (myDb.insertData("token_table", token, requestBody.getEmail(),null)) {
+            if (myDb.insertData("token_table", token, requestBody.getEmail(), null)) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("name", requestBody.getEmail());
                 startActivity(intent);
@@ -83,15 +94,16 @@ public class LoginActivity extends AppCompatActivity {
         myDb.delete("token_table");
         myDb.close();
     }
+
     public String SHA256(String str) {
-        String SHA="";
+        String SHA;
         try {
             MessageDigest sh = MessageDigest.getInstance("SHA-256");
             sh.update(str.getBytes());
             byte byteData[] = sh.digest();
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < byteData.length; i++) {
-                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            StringBuilder sb = new StringBuilder();
+            for (byte aByteData : byteData) {
+                sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
             }
             SHA = sb.toString();
         } catch (NoSuchAlgorithmException e) {
@@ -102,30 +114,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void fcmBackgroundControl(Intent getIntent) {
-        Intent intent;
         switch (Objects.requireNonNull(getIntent.getStringExtra("type"))) {
             case "sleep_out":
-                intent = new Intent(getApplicationContext(), ResultActivity.class);
                 myDb.updateData("sleep_out_table", "1", getIntent.getStringExtra("idx"));
-                startActivity(intent);
                 activityChanged = true;
+                startActivity(changeIntent(this, ResultActivity.class));
                 finish();
                 break;
             case "go_out":
-                intent = new Intent(getApplicationContext(), ResultActivity.class);
                 myDb.updateData("go_out_table", "1", getIntent.getStringExtra("idx"));
-                startActivity(intent);
                 activityChanged = true;
+                startActivity(changeIntent(this, ResultActivity.class));
                 finish();
                 break;
             case "notice":
-                intent = new Intent(getApplicationContext(), NoticeDetailActivity.class);
-                intent.putExtra("idx", getIntent.getStringExtra("idx"));
-                startActivity(intent);
+                changeIntent(this, NoticeDetailActivity.class, getIntent.getStringExtra("idx"));
                 activityChanged = true;
                 finish();
                 break;
         }
+    }
+
+    private Intent changeIntent(Context context, Class cls) {
+        return new Intent(context, cls);
+    }
+
+    private void changeIntent(Context context, Class cls, String idx) {
+        startActivity(changeIntent(context, cls).putExtra("idx", idx));
     }
 
     private Button.OnClickListener btnClickListener = new View.OnClickListener() {
@@ -175,13 +190,14 @@ public class LoginActivity extends AppCompatActivity {
         retroService.getSignInService().signIn(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (response.body()==null)
+                if (response.body() == null)
                     Toast.makeText(LoginActivity.this, "데이터를 받아오지 못했습니다.", Toast.LENGTH_SHORT).show();
                 else if (response.body().getStatus() == 200)
                     exceptionCatcher(response.body().getStatus(), response.body().getData().getToken());
                 else
                     exceptionCatcher(response.body().getStatus(), null);
             }
+
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, "서버에서 응답을 받지 못했습니다.", Toast.LENGTH_SHORT).show();

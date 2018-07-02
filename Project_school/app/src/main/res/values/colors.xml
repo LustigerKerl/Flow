@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBrown">#7f3f00</color>
+    <!-- 하얀색인데 덜 하얀색 -->
+    <color name="mw">#d7d7d7</color>
+
 </resources>

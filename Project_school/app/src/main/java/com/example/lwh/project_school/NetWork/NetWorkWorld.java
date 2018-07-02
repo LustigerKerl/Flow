@@ -19,9 +19,9 @@ public  class NetWorkWorld extends AsyncTask<Integer, Integer, Integer> {
     private static List<SchoolMenu> result=null;
 
     @Override
-    protected void onPostExecute(Integer integer) {
+    protected void onPostExecute(Integer integer) { //네트워크 작업이 끝난후
         super.onPostExecute(integer);
-        delegate.getMenu(result);
+        delegate.getMenu(result);       //delegate 패턴을 써서 전달
     }
 
     @Override

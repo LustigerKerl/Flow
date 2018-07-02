@@ -94,7 +94,6 @@ public class NoticeDetailActivity extends AppCompatActivity {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setDoInput(true);
                     conn.connect();
-
                     InputStream is = conn.getInputStream();
                     bitmap = BitmapFactory.decodeStream(is);
                 } catch (IOException ex) {

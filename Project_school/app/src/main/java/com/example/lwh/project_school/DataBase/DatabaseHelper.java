@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate    (SQLiteDatabase db) {
         db.execSQL("create table " + "token_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TOKEN TEXT,EMAIL TEXT)");
         db.execSQL("create table sleep_out_table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,ACCEPT INTEGER,IDX INTEGER,START_DATE TEXT" +
                 ",END_DATE TEXT,REASON TEXT,CLASS_IDX INTEGER,STUDENT_EMAIL STRING)");

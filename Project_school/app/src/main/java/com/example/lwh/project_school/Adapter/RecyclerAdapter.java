@@ -47,7 +47,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 if (recyclerItem.getContent().length() >= 20)
                     holder.tvNoticeContent.setText(String.format("%s  ...", recyclerItem.getContent().substring(0, 19)));
                 else holder.tvNoticeContent.setText(recyclerItem.getContent());
-
                 holder.tvNoticeIdx.setText(Integer.toString(recyclerItem.getIdx()));
                 holder.tvNoticeWriter.setText(recyclerItem.getWriter().replace("@dgsw.hs.kr", ""));
                 break;

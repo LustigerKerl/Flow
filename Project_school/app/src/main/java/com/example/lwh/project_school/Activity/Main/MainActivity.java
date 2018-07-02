@@ -22,38 +22,47 @@ import com.example.lwh.project_school.Activity.Result.ResultActivity;
 import com.example.lwh.project_school.DataBase.DatabaseHelper;
 import com.example.lwh.project_school.R;
 
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity {
     private long backPressedTime = 0;
     DatabaseHelper myDb;
     public static Context mContext;
     public static TextView badge_noti1,badge_noti2;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.tvNameView)
+    TextView tvNameView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        init();
 
+    }
+
+    public void init() {
         myDb = new DatabaseHelper(this);                            //Instantiation
 
-        Toolbar toolbar = findViewById(R.id.toolbar);                       //Binding Section
-        TextView tvNameView = findViewById(R.id.tvNameView);
         badge_noti1 = findViewById(R.id.badge_noti1);
-        badge_noti2 = findViewById(R.id.badge_noti2);
-        Button btnShowOut = findViewById(R.id.btnShowOut);
-        Button btnShowFood = findViewById(R.id.btnShowFood);
-        Button btnShowOutRes = findViewById(R.id.btnShowOutRes);
-        Button btnShowNotice = findViewById(R.id.btnShowNotice);            //End of Binding
+        badge_noti2 = findViewById(R.id.badge_noti2);         //End of Binding
 
-        btnShowOut.setOnClickListener(btnClickListener);                    //Initializing Section
-        btnShowFood.setOnClickListener(btnClickListener);
-        btnShowOutRes.setOnClickListener(btnClickListener);
-        btnShowNotice.setOnClickListener(btnClickListener);
         tvNameView.setText(setNameText());
         toolbar.setTitleTextColor(Color.parseColor("#d7d7d7"));
+
         mContext = this;
         badge_noti2.setVisibility(View.INVISIBLE);
         badge_noti1.setVisibility(View.INVISIBLE);
-        setSupportActionBar(toolbar);                                       //End of Initializing
+        setSupportActionBar(toolbar);
+        LoginActivity.InitializationOnDemandHolderIdiom.getInstance();
     }
 
     @Override
@@ -72,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_logout:
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+                changeIntent(this, LoginActivity.class);
                 myDb.delete("token_table");
                 Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
@@ -88,34 +96,34 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private Button.OnClickListener btnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent;
-            switch (v.getId()) {
-                case R.id.btnShowOut:
-                    intent = new Intent(getApplicationContext(), OutActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btnShowFood:
-                    intent = new Intent(getApplicationContext(), FoodActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.btnShowOutRes:
-                    intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    startActivity(intent);
-                    badge_noti2.setText("0");
-                    badge_noti2.setVisibility(View.INVISIBLE);
-                    break;
-                case R.id.btnShowNotice:
-                    intent = new Intent(getApplicationContext(), NoticeListActivity.class);
-                    startActivity(intent);
-                    badge_noti1.setText("0");
-                    badge_noti1.setVisibility(View.INVISIBLE);
-                    break;
-            }
+    @OnClick({R.id.btnShowFood, R.id.btnShowOut, R.id.btnShowOutRes, R.id.btnShowNotice})
+    public void btnClick(View view){
+        switch (view.getId()) {
+            case R.id.btnShowOut:
+                changeIntent(getApplicationContext(), OutActivity.class);
+                break;
+            case R.id.btnShowFood:
+                changeIntent(getApplicationContext(), FoodActivity.class);
+                break;
+            case R.id.btnShowOutRes:
+                changeIntent(getApplicationContext(), ResultActivity.class, badge_noti2);
+                break;
+            case R.id.btnShowNotice:
+                changeIntent(getApplicationContext(), NoticeListActivity.class, badge_noti1);
+                break;
         }
-    };
+    }
+
+    private void changeIntent(Context context, Class cls) {
+        Intent intent = new Intent(context, cls);
+        startActivity(intent);
+    }
+
+    private void changeIntent(Context context, Class cls, TextView tv) {
+        changeIntent(context, cls);
+        tv.setText("0");
+        tv.setVisibility(View.INVISIBLE);
+    }
 
     private String setNameText() {
         Cursor res = myDb.getAllData("token_table");

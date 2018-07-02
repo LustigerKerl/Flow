@@ -24,7 +24,6 @@ public class FoodActivity extends AppCompatActivity implements NetWorkWorld.Task
     private TextView timeView, tvFoodMenu;
     private ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +45,6 @@ public class FoodActivity extends AppCompatActivity implements NetWorkWorld.Task
         cmpTime();                                              //Initializing Methods Section
         setTimeViewText();
         startAsync();                                           //End of Initializing
-
     }
 
     private DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
@@ -74,7 +72,6 @@ public class FoodActivity extends AppCompatActivity implements NetWorkWorld.Task
         netWorkWorld.execute(year, nowMon, day);
         tvFoodMenu.setText("불러오는중 ...");
         progressBar.setVisibility(View.VISIBLE);
-
     }
 
     public void cmpTime() {
@@ -150,8 +147,6 @@ public class FoodActivity extends AppCompatActivity implements NetWorkWorld.Task
                             year, nowMon - 1, day).show();
                     break;
             }
-
         }
     };
-
 }
